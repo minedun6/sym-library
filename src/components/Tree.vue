@@ -17,7 +17,7 @@
         <div class="p-3 bg-white p-4">
           <div class="tree">
             <div v-for="node in tree" :key="node.id">
-              <tree-menu-item :node="node" :tree="node.children" :depth="0" :query="query"></tree-menu-item>
+              <tree-menu-item :node="node" :tree="node.children" :depth="0" :query="query" @selectedNode="selectNode" :selectedNode="selectedNode"></tree-menu-item>
             </div>
           </div>
         </div>
@@ -34,6 +34,7 @@
     props: ['tree'],
     data() {
       return {
+        selectedNode: null,
         query: ''
       }
     },
@@ -41,7 +42,9 @@
       TreeMenuItem
     },
     methods: {
-
+      selectNode(node) {
+        this.selectedNode = node.node.id;
+      }
     }
   }
 </script>
