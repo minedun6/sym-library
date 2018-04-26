@@ -2,7 +2,7 @@
   <div id="app">
     <div class="min-h-screen bg-grey-darker p-8">
       <div class="max-w-md mx-auto">
-        <div class="tree bg-white p-4 rounded">
+        <div class="tree bg-white p-4 rounded overflow-y-scroll h-80">
           <transition-group name="list">
             <div v-for="node in tree" :key="node.id">
               <tree-menu :node="node" :tree="node.children" :depth="0" @bus="bus" :selectedNode="selectedNode"></tree-menu>
@@ -32,12 +32,38 @@
     methods: {
       bus: function (data) {
         this.selectedNode = data.id
-      } 
+      }
     }
   };
 </script>
 
 <style lang="scss">
+  .h-80 {
+    height: 20rem;
+  }
+  /* Custom styles for scrollbar */
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    background-color: #d6dadc;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: darkgrey;
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
+
   .outline-0 {
     outline: none;
   }
