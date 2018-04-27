@@ -32,9 +32,6 @@ export default {
     isFolder(node) {
       return node.type_id == '2';
     },
-    selectNode(node) {
-      this.$emit('selectedNode', {node});
-    },
     labelClasses(node) {
       return [{ "has-children": this.node.children.length > 0 }, {'bg-blue-light p-2 rounded' : this.selectedNode && this.selectedNode == node.id}];
     }
