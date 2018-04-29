@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div class="min-h-screen bg-grey-darker p-8">
+        <div class="min-h-screen bg-grey-darker p-4">
             <div class="max-w-md mx-auto">
                 <div class="mb-2 border-solid border-grey-light rounded border shadow-sm">
                     <div
@@ -12,18 +12,16 @@
                                    class="border border-solid border-grey-light bg-grey-white leading-normal p-1 pr-8 rounded outline-0 shadow-inner"
                                    title=""
                                    v-model="query"
-                                   @input="searchForNode"
                             />
                         </span>
                     </div>
                     <div class="p-3 bg-white p-4">
-                        <div class="tree bg-white p-4 rounded overflow-y-scroll h-80">
-                            <transition-group name="list">
-                                <div v-for="node in tree" :key="node.id">
-                                    <tree-menu :node="node" :tree="node.children" :depth="0" @bus="bus"
-                                               :selectedNode="selectedNode"></tree-menu>
-                                </div>
-                            </transition-group>
+                        <div class="tree bg-white p-4 rounded">
+                            <tree
+                                :data="items"
+                                :filter="query"
+                                ref="tree"
+                            />
                         </div>
                     </div>
                 </div>
@@ -33,55 +31,35 @@
 </template>
 
 <script>
-    import _ from 'lodash'
+    import TreeRoot from '@/Tree/components/TreeRoot'
     import sourceData from "@/data";
-    import TreeMenu from "./components/TreeMenu";
 
     export default {
         components: {
-            TreeMenu
+            'tree': TreeRoot
         },
         data() {
             return {
-                tree: sourceData,
-                selectedNode: null,
-                query: ''
-            };
-        },
-        methods: {
-            bus: function (data) {
-                this.selectedNode = data.id
-            },
-            findAll: function (data, query) {
-                let results = [];
-
-                if (!Array.isArray(data)) {
-                    return;
-                }
-
-                data.forEach((node) => {
-                    if (node.text.toLowerCase().includes(query.toLowerCase())) {
-                        results.push(node);
-                    }
-                    results = Array.prototype.concat.apply(results,
-                        this.findAll(node.children, query)
-                    );
-                });
-
-                return results;
-            },
-            searchForNode: _.debounce(function () {
-                console.log(this.findAll(this.tree, 'pdf'))
-            }, 1000)
+                items: [
+                    {text: 'Item 1'},
+                    {
+                        text: 'Item 2', state: {expanded: true}, children: [
+                            {text: 'Item 2.1'},
+                            {text: 'Item 2.2'},
+                            {text: 'Item 2.3'}
+                        ]
+                    },
+                    {text: 'Item 3', state: {selected: true}},
+                    {text: 'Item 4'}
+                ],
+                query: '',
+                options: {}
+            }
         }
     };
 </script>
 
 <style lang="scss">
-    .h-80 {
-        height: 20rem;
-    }
-
     /* Custom styles for scrollbar */
     ::-webkit-scrollbar-track {
         -webkit-border-radius: 10px;
@@ -109,22 +87,15 @@
         outline: none;
     }
 
+    .h-80 {
+        height: 20rem;
+    }
+
+    .tree-node.matched > .tree-content {
+        background: #f7f2e7;
+    }
+
     .mt-055 {
         margin-top: 0.55rem;
-    }
-
-    .list-enter-active, .list-leave-active {
-        transition: all .2s ease-in-out;
-    }
-
-    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
-    {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-
-    .far {
-        -webkit-transition: all 0.5s;
-        transition: all 0.5s;
     }
 </style>
