@@ -12,6 +12,7 @@
   "dependencies": {
     "liquor-tree": "^0.2.24",
     "lodash": "^4.17.10",
+    "vee-validate": "^2.0.8",
     "vue": "^2.5.16"
   },
   "devDependencies": {

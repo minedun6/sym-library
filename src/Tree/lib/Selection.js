@@ -4,7 +4,7 @@ function nodeIterator (context, method, ...args) {
 }
 
 export default class Selection extends Array {
-    constructor (tree, items) {
+    constructor (tree, items = []) {
         super();
 
         this.tree = tree;

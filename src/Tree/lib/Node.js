@@ -20,7 +20,7 @@ export default class Node {
         this.isEditing = false
 
         this.data = Object.assign({}, {
-            text: item.text
+            text: item.text,
         }, item.data || {})
 
         if (!tree) {

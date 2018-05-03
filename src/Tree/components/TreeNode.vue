@@ -274,7 +274,6 @@
         border: 1.5px solid #fff; /* probably width would be rounded in most cases */
         border-left: 0;
         border-top: 0;
-        left: 9px;
         top: 3px;
         height: 15px;
         width: 8px;
