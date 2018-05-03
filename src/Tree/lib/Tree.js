@@ -531,12 +531,16 @@ export default class Tree {
     }
 
     remove (criteria, multiple) {
+        let node = this.find(criteria, multiple)
+
         return this.removeNode(
             this.find(criteria, multiple)
         )
     }
 
     removeNode (node) {
+        let nextNode = this.nextNode(node)  
+        
         if (node instanceof Selection) {
             return node.remove()
         }
@@ -586,6 +590,8 @@ export default class Tree {
                 )
             }
         }
+
+        this.select(nextNode)
 
         return node
     }

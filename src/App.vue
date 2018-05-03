@@ -21,7 +21,6 @@
                                 :data="items"
                                 :filter="query"
                                 ref="tree"
-                                @node:selected="onSelectedNode"
                             >
                                 <span class="tree-text" slot-scope="{ node }">
                                     <template v-if="!node.hasChildren()">
@@ -35,7 +34,7 @@
                                     </template>
                                 </span>
                             </tree>
-                            <div class="form-group mb-4" :class="{'text-red' : errors.has('firstName')}">
+                            <!-- <div class="form-group mb-4" :class="{'text-red' : errors.has('firstName')}">
                                 <label for="first-name" class="inline-flex mb-2">First Name</label>
                                 <input type="text"
                                        v-validate="'required'"
@@ -86,7 +85,7 @@
                                         v-model="permission.checked">
                                     </custom-check>
                                 </div>
-                            </custom-check>
+                            </custom-check> -->
                         </div>
                     </div>
                 </div>
@@ -221,6 +220,7 @@
             trigger() {
                 let targetNode = this.$refs.tree.find({id: 849})
                 console.log(targetNode)
+                this.$refs.tree.select(targetNode)
             },
             toggleModulePermissions(module) {
                 if (module.checked) {

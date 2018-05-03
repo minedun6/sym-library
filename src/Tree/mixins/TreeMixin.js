@@ -144,6 +144,4 @@ export default {
         }
     }
 
-    /*eslint semi: 0 */
-    /* https://github.com/vuejs/rollup-plugin-vue/issues/169 */
 };
