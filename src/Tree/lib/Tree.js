@@ -539,8 +539,6 @@ export default class Tree {
     }
 
     removeNode (node) {
-        let nextNode = this.nextNode(node)  
-        
         if (node instanceof Selection) {
             return node.remove()
         }
@@ -590,8 +588,6 @@ export default class Tree {
                 )
             }
         }
-
-        this.select(nextNode)
 
         return node
     }

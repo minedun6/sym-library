@@ -26,7 +26,7 @@ function focusUp (tree, node) {
     prevNode.focus()
 }
 
-function focusdDown (tree, node) {
+function focusDown (tree, node) {
     const nextNode = tree.nextVisibleNode(node)
 
     if (!nextNode) {
@@ -34,7 +34,7 @@ function focusdDown (tree, node) {
     }
 
     if (nextNode.disabled()) {
-        return focusdDown(tree, nextNode)
+        return focusDown(tree, nextNode)
     }
 
     nextNode.focus()
@@ -79,6 +79,8 @@ function rightArrow (tree, node) {
 function deleteNode (tree, node) {
     const deletion = tree.options.deletion
 
+    const nextNode = tree.nextVisibleNode(node)
+
     if (deletion) {
         if (typeof deletion === 'function') {
             if (deletion(node) === true) {
@@ -88,6 +90,8 @@ function deleteNode (tree, node) {
             node.remove()
         }
     }
+
+    nextNode.select()
 }
 
 export default function (tree) {
@@ -116,7 +120,7 @@ export default function (tree) {
                 case keyCodes.ARROW_LEFT: return leftArrow(tree, node)
                 case keyCodes.ARROW_RIGHT: return rightArrow(tree, node)
                 case keyCodes.ARROW_TOP: return focusUp(tree, node)
-                case keyCodes.ARROW_BOTTOM: return focusdDown(tree, node)
+                case keyCodes.ARROW_BOTTOM: return focusDown(tree, node)
                 case keyCodes.SPACE:
                 case keyCodes.ENTER: return checkNode(tree, node)
                 case keyCodes.DELETE: return deleteNode(tree, node)

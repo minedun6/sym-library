@@ -220,7 +220,6 @@
             trigger() {
                 let targetNode = this.$refs.tree.find({id: 849})
                 console.log(targetNode)
-                this.$refs.tree.select(targetNode)
             },
             toggleModulePermissions(module) {
                 if (module.checked) {
